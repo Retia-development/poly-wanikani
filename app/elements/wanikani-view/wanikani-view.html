@@ -7,6 +7,7 @@
         display: block;
       }
     </style>
+    <wanikani-data items="{{items}}"></wanikani-data>
       <paper-dialog modal="true" id="authView" entry-animation="scale-up-animation" exit-animation="fade-out-animation" opened="{{!isAuthenticated}}" autoFitOnAttach="true">
         <form is="iron-form" id="form">
           <paper-input label="API Key" name="key" required autofocus></paper-input>
@@ -24,6 +25,7 @@
         </paper-toolbar>
 
         <div class="content">
+
         </div>
       </paper-scroll-header-panel>
   </template>
@@ -44,6 +46,9 @@
         isAuthenticated: {
           type: Boolean,
           computed: '_isAuthenticated(apiKey)'
+        },
+        items: {
+          type: Array
         }
       },
       _getItems: function(e, data) {

@@ -1,0 +1,47 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="wanikani-data">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'wanikani-data',
+      properties: {
+        items: {
+          type: Array,
+          notify: true,
+          value: [
+          {
+            "type": "vocabulary",
+            "character": "用",
+            "kana": "よう",
+            "meaning": "task, use, duty, service, business, purpose, function",
+            "level": 3,
+            "unlocked_date": 1432814272
+          },
+          {
+            "type": "kanji",
+            "character": "方",
+            "meaning": "direction, way",
+            "onyomi": "ほう",
+            "kunyomi": "かた",
+            "nanori": null,
+            "important_reading": "kunyomi",
+            "level": 3,
+            "unlocked_date": 1382384954
+          }],
+        }
+      }
+    });
+  })();
+  </script>
+</dom-module>
