@@ -25,12 +25,12 @@
         </paper-toolbar>
 
         <div class="content fit">
-          <wanikani-exercise item="[[randomItem]]" class="fit"></wanikani-exercise>
+          <wanikani-exercise item="[[randomItem]]" class="fit" on-wrong-answer="handleWrongAnswer"></wanikani-exercise>
         </div>
       </paper-header-panel>
   </template>
   <script>
-  (function() {
+  (function(window) {
     'use strict';
 
     Polymer({
@@ -48,12 +48,16 @@
           computed: '_isAuthenticated(apiKey)'
         },
         items: {
-          type: Array
+          type: Array,
+          observer: '_setRandomItem'
         },
         randomItem: {
-          type: Object,
-          computed: '_getRandomItem(items)'
+          type: Object
         }
+      },
+      handleWrongAnswer: function(e, rightAnswer) {
+        window.alert('The correct answer was: ' + rightAnswer);
+        this._setRandomItem(this.items);
       },
       _getItems: function(e, data) {
         this.apiKey = data.key;
@@ -61,11 +65,13 @@
       _isAuthenticated: function() {
         return typeof(this.apiKey) === 'string';
       },
+      _setRandomItem: function(items) {
+        this.randomItem = this._getRandomItem(items);
+      },
       _getRandomItem: function(items) {
-        console.log(_.sample(items));
         return _.isArray(items) ? _.sample(items) : null;
       }
     });
-  })();
+  })(window);
   </script>
 </dom-module>

@@ -31,7 +31,7 @@
 
     <paper-material class="flex" elevation="3" id="answerForm">
       <form is="iron-form" id="form" class="flex">
-        <input type="text" class="flex" placeholder="answer" required autofocus/>
+        <input type="text" class="flex" placeholder="meaning" name="meaning" required autofocus/>
       </form>
     </paper-material>
   </template>
@@ -59,7 +59,13 @@
           computed: 'isType(item, "radical")'
         }
       },
-      _validateAnswer: function() {
+      _validateAnswer: function(e, data) {
+        var answer = data.meaning;
+        if (answer.toLowerCase() === this.item.meaning.toLowerCase()) {
+          this.fire('correct-answer');
+        } else {
+          this.fire('wrong-answer', this.item.meaning);
+        }
       },
       isType: function(item, type) {
         return item.type === type;
