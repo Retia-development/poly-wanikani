@@ -45,9 +45,7 @@
     <img src="[[item.image]]" hidden$="{{!hasImage}}" alt="">
 
     <paper-material class="flex" elevation="3" id="answerForm">
-      <form is="iron-form" id="form" class="flex">
-        <input type="text" class="flex" placeholder="meaning" name="meaning" required autofocus/>
-      </form>
+      <input type="text" id="answer" class="flex" placeholder="meaning" value="{{answer::input}}"/>
     </paper-material>
   </template>
   <script>
@@ -69,22 +67,23 @@
         hasImage: {
           type: Boolean,
           computed: '_hasImage(item)'
+        },
+        answer: {
+          type: String,
+          observer: '_validateAnswer'
         }
       },
       getType: function(item) {
-        console.log(item);
         return item.type;
       },
       _hasImage: function(item) {
         return !_.isUndefined(item.image);
       },
-      _validateAnswer: function(e, data) {
-        var answer = data.meaning.toLowerCase();
-        if (this._isCorrect(answer)) {
+      _validateAnswer: function(answer) {
+        if (this._isCorrect(answer.toLowerCase())) {
+          this.$.answer.value = '';
           this.fire('correct-answer');
-        } else {
-          this.fire('wrong-answer', this.item.meaning);
-        }
+        };
       },
       _isCorrect: function(answer) {
         var answers = this.item.meaning.split(', ');
