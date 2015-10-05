@@ -1,0 +1,35 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="wanikani-view">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+      <paper-scroll-header-panel main condenses keep-condensed-header class="fit">
+        <paper-toolbar id="mainToolbar">
+          <span class="flex"></span>
+
+          <paper-icon-button icon="refresh"></paper-icon-button>
+          <div class="middle middle-container center horizontal layout">
+            <div class="app-name">poly wanikani</div>
+          </div>
+        </paper-toolbar>
+
+        <div class="content">
+        </div>
+      </paper-scroll-header-panel>
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'wanikani-view',
+      properties: {
+      }
+    });
+  })();
+  </script>
+</dom-module>
