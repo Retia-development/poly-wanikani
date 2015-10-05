@@ -7,7 +7,7 @@
         display: block;
       }
     </style>
-    <wanikani-data items="{{items}}" api-key="[[apiKey]]" on-success="setAuth" on-error="resetAuth"></wanikani-data>
+    <wanikani-data id="data" items="{{items}}" api-key="[[apiKey]]" on-success="setAuth" on-error="resetAuth"></wanikani-data>
       <paper-dialog modal="true" id="authView" entry-animation="scale-up-animation" exit-animation="fade-out-animation" opened="{{!isAuthenticated}}" autoFitOnAttach="true">
         <form is="iron-form" id="form">
           <paper-input label="API Key" name="key" required autofocus></paper-input>
@@ -18,7 +18,7 @@
         <paper-toolbar id="mainToolbar">
           <span class="flex"></span>
 
-          <paper-icon-button icon="refresh"></paper-icon-button>
+          <paper-icon-button icon="refresh" on-tap="getItems"></paper-icon-button>
           <div class="middle middle-container center horizontal layout">
             <div class="app-name">poly wanikani</div>
           </div>
@@ -36,7 +36,7 @@
     Polymer({
       is: 'wanikani-view',
       listeners: {
-        'iron-form-submit': '_getItems'
+        'iron-form-submit': '_handleSubmit'
       },
       properties: {
         apiKey: {
@@ -55,6 +55,9 @@
           type: Object
         }
       },
+      getItems: function() {
+        this.$.data.getItems();
+      },
       setAuth: function() {
         this.isAuthenticated = true;
       },
@@ -62,8 +65,8 @@
         this.isAuthenticated = false;
         this.$.authView.open();
       },
-      _getItems: function(e, data) {
-        this.apiKey = data.key;
+      _handleSubmit: function(e, data) {
+        this.apiKey = data.key
       },
       _setRandomItem: function() {
         this.randomItem = this._getRandomItem(this.items);

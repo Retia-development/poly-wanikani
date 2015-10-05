@@ -77,7 +77,7 @@
         return item.type;
       },
       _hasImage: function(item) {
-        return !_.isUndefined(item.image);
+        return _.isString(item.image);
       },
       _validateAnswer: function(answer) {
         if (this._isCorrect(answer.toLowerCase())) {
