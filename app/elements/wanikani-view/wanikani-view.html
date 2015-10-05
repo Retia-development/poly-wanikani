@@ -18,6 +18,7 @@
         <paper-toolbar id="mainToolbar">
           <span class="flex"></span>
 
+          <paper-icon-button icon="face" on-tap="openAPIWindow"></paper-icon-button>
           <paper-icon-button icon="refresh" on-tap="getItems"></paper-icon-button>
           <div class="middle middle-container center horizontal layout">
             <div class="app-name">Welcome <span>{{user.username}}</span></div>
@@ -57,6 +58,9 @@
         randomItem: {
           type: Object
         }
+      },
+      openAPIWindow: function() {
+        this.$.authView.open();
       },
       getItems: function() {
         this.$.data.getItems();
