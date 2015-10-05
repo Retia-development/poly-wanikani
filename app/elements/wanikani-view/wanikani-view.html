@@ -7,7 +7,7 @@
         display: block;
       }
     </style>
-    <wanikani-data items="{{items}}" api-key="[[apiKey]]"></wanikani-data>
+    <wanikani-data items="{{items}}" api-key="[[apiKey]]" on-success="setAuth" on-error="resetAuth"></wanikani-data>
       <paper-dialog modal="true" id="authView" entry-animation="scale-up-animation" exit-animation="fade-out-animation" opened="{{!isAuthenticated}}" autoFitOnAttach="true">
         <form is="iron-form" id="form">
           <paper-input label="API Key" name="key" required autofocus></paper-input>
@@ -45,7 +45,7 @@
         },
         isAuthenticated: {
           type: Boolean,
-          computed: '_isAuthenticated(apiKey)'
+          value: false
         },
         items: {
           type: Array,
@@ -55,15 +55,15 @@
           type: Object
         }
       },
-      handleWrongAnswer: function(e, rightAnswer) {
-        window.alert('The correct answer was: ' + rightAnswer);
-        this._setRandomItem();
+      setAuth: function() {
+        this.isAuthenticated = true;
+      },
+      resetAuth: function() {
+        this.isAuthenticated = false;
+        this.$.authView.open();
       },
       _getItems: function(e, data) {
         this.apiKey = data.key;
-      },
-      _isAuthenticated: function() {
-        return typeof(this.apiKey) === 'string';
       },
       _setRandomItem: function() {
         this.randomItem = this._getRandomItem(this.items);

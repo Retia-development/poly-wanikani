@@ -67,7 +67,12 @@
         return 'https://www.wanikani.com/api/user/' + this.apiKey + '/recent-unlocks/100';
       },
       _handleResponse: function(e, request) {
-        this.items = request.requested_information;
+        if (_.isUndefined(request.requested_information)) {
+            this.fire('error');
+        } else {
+          this.items = request.requested_information;
+          this.fire('success');
+        }
       }
     });
   })();
