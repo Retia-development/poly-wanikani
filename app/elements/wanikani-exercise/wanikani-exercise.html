@@ -7,6 +7,7 @@
         display: block;
       }
     </style>
+    <wani-kani-kanji-exercise class="fit" item="[[item]]" hidden$="{{!_isKanji}}"></wani-kani-kanji-exercise>
   </template>
   <script>
   (function() {
@@ -15,7 +16,14 @@
     Polymer({
       is: 'wanikani-exercise',
       properties: {
-        item: Object
+        item: Object,
+        _isKanji: {
+          type: Boolean,
+          computed: 'isType(item, "kanji")'
+        }
+      },
+      isType: function(item, type) {
+        return item.type === type;
       }
     });
   })();
