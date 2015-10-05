@@ -72,22 +72,23 @@
         }
       },
       getType: function(item) {
+        console.log(item);
         return item.type;
       },
       _hasImage: function(item) {
         return !_.isUndefined(item.image);
       },
       _validateAnswer: function(e, data) {
-        var answer = data.meaning;
-        if (answer.toLowerCase() === this.item.meaning.toLowerCase()) {
+        var answer = data.meaning.toLowerCase();
+        if (this._isCorrect(answer)) {
           this.fire('correct-answer');
         } else {
           this.fire('wrong-answer', this.item.meaning);
         }
       },
-      isType: function(item, type) {
-        console.log(arguments);
-        return item.type === type;
+      _isCorrect: function(answer) {
+        var answers = this.item.meaning.split(', ');
+        return _.indexOf(answers, answer) > -1;
       }
     });
   })();
