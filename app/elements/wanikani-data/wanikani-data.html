@@ -7,7 +7,10 @@
         display: block;
       }
     </style>
-
+    <byutv-jsonp
+        id="request"
+        on-response="_handleResponse"
+        debounce-duration="300"></byutv-jsonp>
   </template>
   <script>
   (function() {
@@ -16,6 +19,10 @@
     Polymer({
       is: 'wanikani-data',
       properties: {
+        apiKey: {
+          type: String,
+          observer: 'getItems'
+        },
         items: {
           type: Array,
           notify: true,
@@ -48,6 +55,23 @@
             "unlocked_date": 1382384954
           }
         ],
+        }
+      },
+      getItems: function() {
+        if (!_.isNull(this.apiKey)) {
+          this.$.request.url = this._getUrl();
+          this.$.request.generateRequest();
+        }
+      },
+      _getUrl: function() {
+        return 'https://www.wanikani.com/api/user/' + this.apiKey + '/recent-unlocks/100';
+      },
+      _handleResponse: function(e, request) {
+        if (_.isUndefined(request.requested_information)) {
+            this.fire('error');
+        } else {
+          this.items = request.requested_information;
+          this.fire('success');
         }
       }
     });
