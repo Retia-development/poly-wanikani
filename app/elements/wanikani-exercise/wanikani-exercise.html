@@ -7,6 +7,18 @@
         display: block;
       }
 
+      :host[type="kanji"] {
+        background-color: var(--kanji-color);
+      }
+
+      :host[type="radical"] {
+        background-color: var(--radical-color);
+      }
+
+      :host[type="vocabulary"] {
+        background-color: var(--vocabulary-color)
+      }
+
       #answerForm {
         width: 100%;
         background-color: var(--default-primary-color);
@@ -24,10 +36,13 @@
         outline: none;
       }
 
+      img {
+        display: block;
+        margin: 0 auto;
+      }
     </style>
-    <wani-kani-kanji-exercise class="fit" item="[[item]]" hidden$="{{!_isKanji}}"></wani-kani-kanji-exercise>
-    <wani-kani-vocabulary-exercise class="fit" item="[[item]]" hidden$="{{!_isVocabulary}}"></wani-kani-vocabulary-exercise>
-    <wani-kani-radical-exercise class="fit" item="[[item]]" hidden$="{{!_isRadical}}"></wani-kani-radical-exercise>
+    <wani-kani-symbol symbol="[[item.character]]" hidden$="{{hasImage}}"></wani-kani-symbol>
+    <img src="[[item.image]]" hidden$="{{!hasImage}}" alt="">
 
     <paper-material class="flex" elevation="3" id="answerForm">
       <form is="iron-form" id="form" class="flex">
@@ -46,18 +61,21 @@
       },
       properties: {
         item: Object,
-        _isKanji: {
-          type: Boolean,
-          computed: 'isType(item, "kanji")'
+        type: {
+          type: String,
+          reflectToAttribute: true,
+          computed: 'getType(item)'
         },
-        _isVocabulairy: {
+        hasImage: {
           type: Boolean,
-          computed: 'isType(item, "vocabulary")'
-        },
-        _isRadical: {
-          type: Boolean,
-          computed: 'isType(item, "radical")'
+          computed: '_hasImage(item)'
         }
+      },
+      getType: function(item) {
+        return item.type;
+      },
+      _hasImage: function(item) {
+        return !_.isUndefined(item.image);
       },
       _validateAnswer: function(e, data) {
         var answer = data.meaning;
@@ -68,6 +86,7 @@
         }
       },
       isType: function(item, type) {
+        console.log(arguments);
         return item.type === type;
       }
     });

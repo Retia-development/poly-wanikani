@@ -25,7 +25,7 @@
         </paper-toolbar>
 
         <div class="content fit">
-          <wanikani-exercise item="[[randomItem]]" class="fit" on-wrong-answer="handleWrongAnswer"></wanikani-exercise>
+          <wanikani-exercise item="[[randomItem]]" class="fit" on-correct-answer="_setRandomItem" on-wrong-answer="handleWrongAnswer"></wanikani-exercise>
         </div>
       </paper-header-panel>
   </template>
@@ -57,7 +57,7 @@
       },
       handleWrongAnswer: function(e, rightAnswer) {
         window.alert('The correct answer was: ' + rightAnswer);
-        this._setRandomItem(this.items);
+        this._setRandomItem();
       },
       _getItems: function(e, data) {
         this.apiKey = data.key;
@@ -65,8 +65,8 @@
       _isAuthenticated: function() {
         return typeof(this.apiKey) === 'string';
       },
-      _setRandomItem: function(items) {
-        this.randomItem = this._getRandomItem(items);
+      _setRandomItem: function() {
+        this.randomItem = this._getRandomItem(this.items);
       },
       _getRandomItem: function(items) {
         return _.isArray(items) ? _.sample(items) : null;
