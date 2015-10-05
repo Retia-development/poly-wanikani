@@ -1,0 +1,58 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="wanikani-view">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+      <paper-dialog modal="true" id="authView" entry-animation="scale-up-animation" exit-animation="fade-out-animation" opened="{{!isAuthenticated}}" autoFitOnAttach="true">
+        <form is="iron-form" id="form">
+          <paper-input label="API Key" name="key" required autofocus></paper-input>
+        </form>
+      </paper-dialog>
+
+      <paper-scroll-header-panel main condenses keep-condensed-header class="fit">
+        <paper-toolbar id="mainToolbar">
+          <span class="flex"></span>
+
+          <paper-icon-button icon="refresh"></paper-icon-button>
+          <div class="middle middle-container center horizontal layout">
+            <div class="app-name">poly wanikani</div>
+          </div>
+        </paper-toolbar>
+
+        <div class="content">
+        </div>
+      </paper-scroll-header-panel>
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'wanikani-view',
+      listeners: {
+        'iron-form-submit': '_getItems'
+      },
+      properties: {
+        apiKey: {
+          type: String,
+          value: null
+        },
+        isAuthenticated: {
+          type: Boolean,
+          computed: '_isAuthenticated(apiKey)'
+        }
+      },
+      _getItems: function(e, data) {
+        this.apiKey = data.key;
+      },
+      _isAuthenticated: function() {
+        return typeof(this.apiKey) === 'string';
+      }
+    });
+  })();
+  </script>
+</dom-module>
