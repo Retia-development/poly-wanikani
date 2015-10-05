@@ -14,7 +14,7 @@
         </form>
       </paper-dialog>
 
-      <paper-scroll-header-panel main condenses keep-condensed-header class="fit">
+      <paper-header-panel class="fit">
         <paper-toolbar id="mainToolbar">
           <span class="flex"></span>
 
@@ -24,10 +24,10 @@
           </div>
         </paper-toolbar>
 
-        <div class="content">
-
+        <div class="content fit">
+          <wanikani-exercise item="[[randomItem]]" class="fit"></wanikani-exercise>
         </div>
-      </paper-scroll-header-panel>
+      </paper-header-panel>
   </template>
   <script>
   (function() {
@@ -49,6 +49,10 @@
         },
         items: {
           type: Array
+        },
+        randomItem: {
+          type: Object,
+          computed: '_getRandomItem(items)'
         }
       },
       _getItems: function(e, data) {
@@ -56,6 +60,10 @@
       },
       _isAuthenticated: function() {
         return typeof(this.apiKey) === 'string';
+      },
+      _getRandomItem: function(items) {
+        console.log(_.sample(items));
+        return _.isArray(items) ? _.sample(items) : null;
       }
     });
   })();
