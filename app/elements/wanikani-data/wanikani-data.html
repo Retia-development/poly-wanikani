@@ -23,6 +23,10 @@
           type: String,
           observer: 'getItems'
         },
+        user: {
+          type: Object,
+          notify: true,
+        },
         items: {
           type: Array,
           notify: true,
@@ -71,6 +75,7 @@
             this.fire('error');
         } else {
           this.items = request.requested_information;
+          this.user = request.user_information;
           this.fire('success');
         }
       }

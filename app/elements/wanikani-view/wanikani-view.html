@@ -7,7 +7,7 @@
         display: block;
       }
     </style>
-    <wanikani-data id="data" items="{{items}}" api-key="[[apiKey]]" on-success="setAuth" on-error="resetAuth"></wanikani-data>
+    <wanikani-data id="data" items="{{items}}" user="{{user}}" api-key="[[apiKey]]" on-success="setAuth" on-error="resetAuth"></wanikani-data>
       <paper-dialog modal="true" id="authView" entry-animation="scale-up-animation" exit-animation="fade-out-animation" opened="{{!isAuthenticated}}" autoFitOnAttach="true">
         <form is="iron-form" id="form">
           <paper-input label="API Key" name="key" required autofocus></paper-input>
@@ -20,7 +20,7 @@
 
           <paper-icon-button icon="refresh" on-tap="getItems"></paper-icon-button>
           <div class="middle middle-container center horizontal layout">
-            <div class="app-name">poly wanikani</div>
+            <div class="app-name">Welcome <span>{{user.username}}</span></div>
           </div>
         </paper-toolbar>
 
@@ -50,6 +50,9 @@
         items: {
           type: Array,
           observer: '_setRandomItem'
+        },
+        user: {
+          type: Object
         },
         randomItem: {
           type: Object
