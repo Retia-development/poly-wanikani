@@ -27,7 +27,8 @@
     </style>
     <wani-kani-kanji-exercise class="fit" item="[[item]]" hidden$="{{!_isKanji}}"></wani-kani-kanji-exercise>
     <wani-kani-vocabulary-exercise class="fit" item="[[item]]" hidden$="{{!_isVocabulary}}"></wani-kani-vocabulary-exercise>
-    
+    <wani-kani-radical-exercise class="fit" item="[[item]]" hidden$="{{!_isRadical}}"></wani-kani-radical-exercise>
+
     <paper-material class="flex" elevation="3" id="answerForm">
       <form is="iron-form" id="form" class="flex">
         <input type="text" class="flex" placeholder="answer" required autofocus/>
@@ -52,6 +53,10 @@
         _isVocabulairy: {
           type: Boolean,
           computed: 'isType(item, "vocabulary")'
+        },
+        _isRadical: {
+          type: Boolean,
+          computed: 'isType(item, "radical")'
         }
       },
       _validateAnswer: function() {
