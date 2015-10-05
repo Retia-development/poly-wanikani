@@ -1,0 +1,70 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="wanikani-exercise">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      #answerForm {
+        width: 100%;
+        background-color: var(--default-primary-color);
+        position: absolute;
+        bottom: 0;
+        padding: 25px;
+      }
+
+      input {
+        color: white;
+        border: none;
+        background: transparent;
+        font: inherit;
+        font-size: 32px;
+        outline: none;
+      }
+
+    </style>
+    <wani-kani-kanji-exercise class="fit" item="[[item]]" hidden$="{{!_isKanji}}"></wani-kani-kanji-exercise>
+    <wani-kani-vocabulary-exercise class="fit" item="[[item]]" hidden$="{{!_isVocabulary}}"></wani-kani-vocabulary-exercise>
+    <wani-kani-radical-exercise class="fit" item="[[item]]" hidden$="{{!_isRadical}}"></wani-kani-radical-exercise>
+
+    <paper-material class="flex" elevation="3" id="answerForm">
+      <form is="iron-form" id="form" class="flex">
+        <input type="text" class="flex" placeholder="answer" required autofocus/>
+      </form>
+    </paper-material>
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'wanikani-exercise',
+      listeners: {
+        'iron-form-submit': '_validateAnswer'
+      },
+      properties: {
+        item: Object,
+        _isKanji: {
+          type: Boolean,
+          computed: 'isType(item, "kanji")'
+        },
+        _isVocabulairy: {
+          type: Boolean,
+          computed: 'isType(item, "vocabulary")'
+        },
+        _isRadical: {
+          type: Boolean,
+          computed: 'isType(item, "radical")'
+        }
+      },
+      _validateAnswer: function() {
+      },
+      isType: function(item, type) {
+        return item.type === type;
+      }
+    });
+  })();
+  </script>
+</dom-module>

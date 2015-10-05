@@ -1,0 +1,26 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="wani-kani-kanji-exercise">
+  <template>
+    <style>
+      :host {
+        display: block;
+        background-color: var(--kanji-color);
+      }
+    </style>
+    <wani-kani-symbol symbol="[[item.character]]"></wani-kani-symbol>
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'wani-kani-kanji-exercise',
+
+      properties: {
+        item: Object
+      }
+    });
+  })();
+  </script>
+</dom-module>

@@ -1,0 +1,31 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="wani-kani-symbol">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      h1 {
+        text-align: center;
+        color: white;
+        font-size: 8em;
+      }
+    </style>
+    <h1>[[symbol]]</h1>
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'wani-kani-symbol',
+      properties: {
+        symbol: {
+          type: String
+        }
+      }
+    });
+  })();
+  </script>
+</dom-module>
