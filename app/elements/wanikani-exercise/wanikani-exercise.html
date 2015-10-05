@@ -6,8 +6,31 @@
       :host {
         display: block;
       }
+
+      #answerForm {
+        width: 100%;
+        background-color: var(--default-primary-color);
+        position: absolute;
+        bottom: 0;
+        padding: 25px;
+      }
+
+      input {
+        color: white;
+        border: none;
+        background: transparent;
+        font: inherit;
+        font-size: 32px;
+        outline: none;
+      }
+
     </style>
     <wani-kani-kanji-exercise class="fit" item="[[item]]" hidden$="{{!_isKanji}}"></wani-kani-kanji-exercise>
+    <paper-material class="flex" elevation="3" id="answerForm">
+      <form is="iron-form" id="form" class="flex">
+        <input type="text" class="flex" placeholder="answer" required autofocus/>
+      </form>
+    </paper-material>
   </template>
   <script>
   (function() {
@@ -15,12 +38,17 @@
 
     Polymer({
       is: 'wanikani-exercise',
+      listeners: {
+        'iron-form-submit': '_validateAnswer'
+      },
       properties: {
         item: Object,
         _isKanji: {
           type: Boolean,
           computed: 'isType(item, "kanji")'
         }
+      },
+      _validateAnswer: function() {
       },
       isType: function(item, type) {
         return item.type === type;
