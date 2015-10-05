@@ -50,7 +50,7 @@
     </paper-material>
   </template>
   <script>
-  (function() {
+  (function(window) {
     'use strict';
 
     Polymer({
@@ -78,19 +78,19 @@
         return item.type;
       },
       _hasImage: function(item) {
-        return _.isString(item.image);
+        return window._.isString(item.image);
       },
       _validateAnswer: function(answer) {
         if (this._isCorrect(answer.toLowerCase())) {
           this.$.answer.value = '';
           this.fire('correct-answer');
-        };
+        }
       },
       _isCorrect: function(answer) {
         var answers = this.item.meaning.split(', ');
-        return _.indexOf(answers, answer) > -1;
+        return window._.indexOf(answers, answer) > -1;
       }
     });
-  })();
+  })(window);
   </script>
 </dom-module>

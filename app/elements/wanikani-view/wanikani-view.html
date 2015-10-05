@@ -73,13 +73,13 @@
         this.$.authView.open();
       },
       _handleSubmit: function(e, data) {
-        this.apiKey = data.key
+        this.apiKey = data.key;
       },
       _setRandomItem: function() {
         this.randomItem = this._getRandomItem(this.items);
       },
       _getRandomItem: function(items) {
-        return _.isArray(items) ? _.sample(items) : null;
+        return window._.isArray(items) ? window._.sample(items) : null;
       }
     });
   })(window);

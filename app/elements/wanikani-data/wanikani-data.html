@@ -13,7 +13,7 @@
         debounce-duration="300"></byutv-jsonp>
   </template>
   <script>
-  (function() {
+  (function(window) {
     'use strict';
 
     Polymer({
@@ -32,37 +32,36 @@
           notify: true,
           value: [
           {
-            "type": "vocabulary",
-            "character": "用",
-            "kana": "よう",
-            "meaning": "task, use, duty, service, business, purpose, function",
-            "level": 3,
-            "unlocked_date": 1432814272
+            'type': 'vocabulary',
+            'character': '用',
+            'kana': 'よう',
+            'meaning': 'task, use, duty, service, business, purpose, function',
+            'level': 3,
+            'unlocked_date': 1432814272
           },
           {
-          "type": "radical",
-          "character": null,
-          "meaning": "triceratops",
-          "image": "https://s3.amazonaws.com/s3.wanikani.com/images/radicals/f12384bff66bcddd1f6132e7188096ce6919908a.png",
-          "level": 3,
-          "unlocked_date": 1381948913
-        },
+          'type': 'radical',
+          'character': null,
+          'meaning': 'triceratops',
+          'image': 'https://s3.amazonaws.com/s3.wanikani.com/images/radicals/f12384bff66bcddd1f6132e7188096ce6919908a.png',
+          'level': 3,
+          'unlocked_date': 1381948913
+          },
           {
-            "type": "kanji",
-            "character": "方",
-            "meaning": "direction, way",
-            "onyomi": "ほう",
-            "kunyomi": "かた",
-            "nanori": null,
-            "important_reading": "kunyomi",
-            "level": 3,
-            "unlocked_date": 1382384954
-          }
-        ],
+            'type': 'kanji',
+            'character': '方',
+            'meaning': 'direction, way',
+            'onyomi': 'ほう',
+            'kunyomi': 'かた',
+            'nanori': null,
+            'important_reading': 'kunyomi',
+            'level': 3,
+            'unlocked_date': 1382384954
+          }],
         }
       },
       getItems: function() {
-        if (!_.isNull(this.apiKey)) {
+        if (!window._.isNull(this.apiKey)) {
           this.$.request.url = this._getUrl();
           this.$.request.generateRequest();
         }
@@ -71,7 +70,8 @@
         return 'https://www.wanikani.com/api/user/' + this.apiKey + '/recent-unlocks/100';
       },
       _handleResponse: function(e, request) {
-        if (_.isUndefined(request.requested_information)) {
+        /*jshint camelcase: false */
+        if (window._.isUndefined(request.requested_information)) {
             this.fire('error');
         } else {
           this.items = request.requested_information;
@@ -80,6 +80,6 @@
         }
       }
     });
-  })();
+  })(window);
   </script>
 </dom-module>
