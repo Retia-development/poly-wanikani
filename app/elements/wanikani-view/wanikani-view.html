@@ -7,9 +7,9 @@
         display: block;
       }
     </style>
-      <paper-dialog modal="true" id="authView" opened="true" autoFitOnAttach="true">
+      <paper-dialog modal="true" id="authView" opened="{{!isAuthenticated}}" autoFitOnAttach="true">
         <form is="iron-form" id="form">
-          <paper-input label="API Key" required autofocus></paper-input>
+          <paper-input label="API Key" name="key" required autofocus></paper-input>
         </form>
       </paper-dialog>
 
@@ -33,7 +33,24 @@
 
     Polymer({
       is: 'wanikani-view',
+      listeners: {
+        'iron-form-submit': '_getItems'
+      },
       properties: {
+        apiKey: {
+          type: String,
+          value: null
+        },
+        isAuthenticated: {
+          type: Boolean,
+          computed: '_isAuthenticated(apiKey)'
+        }
+      },
+      _getItems: function(e, data) {
+        this.apiKey = data.key;
+      },
+      _isAuthenticated: function() {
+        return typeof(this.apiKey) === 'string';
       }
     });
   })();
