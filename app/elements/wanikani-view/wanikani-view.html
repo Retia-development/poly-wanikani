@@ -7,6 +7,12 @@
         display: block;
       }
     </style>
+      <paper-dialog modal="true" id="authView" opened="true" autoFitOnAttach="true">
+        <form is="iron-form" id="form">
+          <paper-input label="API Key" required autofocus></paper-input>
+        </form>
+      </paper-dialog>
+
       <paper-scroll-header-panel main condenses keep-condensed-header class="fit">
         <paper-toolbar id="mainToolbar">
           <span class="flex"></span>
